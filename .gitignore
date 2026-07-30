@@ -1,0 +1,13 @@
+.build/
+.swiftpm/
+.DS_Store
+*.app
+*.dmg
+*.xcuserdata
+DerivedData/
+Secrets/
+*.key
+!Sources/**/*.swift
+.env
+.tmp/
+dmg-stage/
