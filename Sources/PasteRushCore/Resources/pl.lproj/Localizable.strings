@@ -107,7 +107,7 @@
 "settings.integrity" = "Test integralności bazy";
 "settings.open_data_dir" = "Otwórz katalog danych";
 "settings.about_tagline" = "Lokalny menedżer historii schowka dla macOS.";
-"settings.version" = "Wersja 1.0.0";
+"settings.version" = "Wersja %@";
 "settings.about_privacy" = "Dane pozostają wyłącznie na tym komputerze. Bez telemetrii, bez chmury, bez AI.";
 "settings.support_cta" = "Jeśli PasteRush Ci pomaga, możesz postawić kawę.";
 

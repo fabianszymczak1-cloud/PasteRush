@@ -107,7 +107,7 @@
 "settings.integrity" = "Database integrity test";
 "settings.open_data_dir" = "Open data folder";
 "settings.about_tagline" = "Local clipboard history manager for macOS.";
-"settings.version" = "Version 1.0.0";
+"settings.version" = "Version %@";
 "settings.about_privacy" = "Data stays on this Mac only. No telemetry, no cloud, no AI.";
 "settings.support_cta" = "If PasteRush helps you, you can buy me a coffee.";
 

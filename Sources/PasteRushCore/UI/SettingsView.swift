@@ -220,7 +220,7 @@ public struct SettingsView: View {
             section(L10n.tr("settings.section.about")) {
                 Text(L10n.tr("app.name")).font(.largeTitle.bold())
                 Text(L10n.tr("settings.about_tagline"))
-                Text(L10n.tr("settings.version"))
+                Text(L10n.tr("settings.version", Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?"))
                 Text(L10n.tr("settings.about_privacy"))
                     .foregroundStyle(.secondary)
                 Text(L10n.tr("settings.support_cta"))
