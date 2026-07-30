@@ -53,6 +53,7 @@
 "settings.change" = "Zmień";
 "settings.press_shortcut" = "Naciśnij skrót…";
 "settings.default_hotkey" = "Domyślnie: ⌃` (Control + backtick)";
+"settings.fn_unsupported" = "Uwaga: klawisz Fn (Globe) nie działa w globalnych skrótach — macOS pozwala tylko na ⌘ ⌥ ⌃ ⇧. Zamiast Fn+Tab użyj np. ⌃⇥ lub ⌥Space.";
 "settings.position" = "Pozycja";
 "settings.width" = "Szerokość";
 "settings.height" = "Wysokość";

@@ -51,13 +51,17 @@ public struct SettingsView: View {
             }
         case .shortcuts:
             section(L10n.tr("settings.section.shortcuts")) {
-                HStack {
+                HStack(alignment: .center, spacing: 12) {
                     Text(L10n.tr("settings.open_hotkey"))
+                    Spacer(minLength: 8)
                     Text(GlobalHotkeyManager.displayString(keyCode: settings.openHotkeyKeyCode, modifiers: settings.openHotkeyModifiers))
                         .font(.system(.body, design: .monospaced))
-                        .padding(6)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
                         .background(Color.secondary.opacity(0.15))
                         .cornerRadius(6)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .help(GlobalHotkeyManager.displayString(keyCode: settings.openHotkeyKeyCode, modifiers: settings.openHotkeyModifiers))
                     Button(recordingHotkey ? L10n.tr("settings.press_shortcut") : L10n.tr("settings.change")) {
                         recordingHotkey = true
                     }
@@ -74,6 +78,7 @@ public struct SettingsView: View {
                     Text(hotkeyConflict).foregroundStyle(.red)
                 }
                 Text(L10n.tr("settings.default_hotkey")).font(.caption).foregroundStyle(.secondary)
+                Text(L10n.tr("settings.fn_unsupported")).font(.caption).foregroundStyle(.secondary)
             }
         case .popup:
             section(L10n.tr("settings.section.popup")) {
