@@ -43,10 +43,23 @@ If PasteRush helps you, you can support development here:
 
 ## Install
 
+Full walkthrough (Gatekeeper + Accessibility): **[docs/INSTALLATION.md](docs/INSTALLATION.md)**
+
 1. Download the DMG and drag **PasteRush** to **Applications** (do not run it from the DMG).
-2. Open the app (menu bar clipboard icon).
-3. Grant **Accessibility** when onboarding asks (needed for auto-paste).
+2. Open the app from `/Applications` (menu bar clipboard icon). If macOS blocks it, see [security warning](#macos-security-warning-malware--cannot-be-opened) below.
+3. Grant **Accessibility** when onboarding asks (needed for auto-paste) — details below.
 4. Copy something → press **⌃`** (Control + backtick) → type → **Enter**.
+
+### Grant Accessibility permission
+
+PasteRush needs **Accessibility** so Enter can paste into the previous app (simulates ⌘V). History and search work without it.
+
+1. In onboarding, click **Open Accessibility Settings** (or go to **System Settings → Privacy & Security → Accessibility**).
+2. Enable the toggle next to **PasteRush**. If it is missing, click **+** and select `/Applications/PasteRush.app`.
+3. Unlock with password / Touch ID if asked.
+4. Back in PasteRush, click **Check again** — status should show **Accessibility: granted**.
+
+You can change this later anytime under System Settings. Polish macOS: **Ustawienia systemowe → Prywatność i ochrona → Dostępność**.
 
 ## macOS security warning (“malware” / “cannot be opened”)
 
@@ -83,7 +96,8 @@ Then open PasteRush again from Applications.
 - Complete onboarding and grant **Accessibility** if asked.
 - Future updates via **Sparkle** (Check for Updates) usually do not need this step again.
 
-If something still fails, make sure the app is in `/Applications` and not sitting on the Desktop or inside the mounted DMG.
+If something still fails, make sure the app is in `/Applications` and not sitting on the Desktop or inside the mounted DMG. More help: **[Installation guide](docs/INSTALLATION.md)**.
+
 ## Keyboard shortcuts
 
 | Shortcut | Action |
