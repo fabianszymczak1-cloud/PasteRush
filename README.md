@@ -43,20 +43,47 @@ If PasteRush helps you, you can support development here:
 
 ## Install
 
-1. Download the DMG and drag **PasteRush** to **Applications**.
+1. Download the DMG and drag **PasteRush** to **Applications** (do not run it from the DMG).
 2. Open the app (menu bar clipboard icon).
 3. Grant **Accessibility** when onboarding asks (needed for auto-paste).
 4. Copy something → press **⌃`** (Control + backtick) → type → **Enter**.
 
-### Gatekeeper note
+## macOS security warning (“malware” / “cannot be opened”)
 
-This build is ad-hoc signed (no paid Apple Developer ID yet). On first open macOS may block it:
+PasteRush is **not malware**. Builds are currently **ad-hoc signed** (no paid Apple Developer ID / notarization yet), so Gatekeeper may show warnings such as:
 
-1. System Settings → **Privacy & Security** → **Open Anyway**, or  
-2. Terminal: `xattr -dr com.apple.quarantine /Applications/PasteRush.app`
+- *“Apple could not verify PasteRush is free of malware”*
+- *“PasteRush cannot be opened because it is from an unidentified developer”*
+- *“PasteRush was blocked to protect your Mac”*
 
-You only need this once. After that, **Sparkle** can install updates from GitHub Releases.
+That is expected for open-source apps without notarization. You only need to allow it **once**.
 
+### Option A — System Settings (recommended)
+
+1. Try to open **PasteRush** once (from `/Applications`). If macOS blocks it, click **Done** / **OK**.
+2. Open **System Settings → Privacy & Security**.
+3. Scroll down to the security section. You should see a message about PasteRush being blocked.
+4. Click **Open Anyway**.
+5. Confirm again in the dialog (**Open**).
+6. If prompted, enter your Mac password / Touch ID.
+
+On some macOS versions the button appears only **after** the first blocked open attempt.
+
+### Option B — Terminal (always works)
+
+```bash
+xattr -dr com.apple.quarantine /Applications/PasteRush.app
+```
+
+Then open PasteRush again from Applications.
+
+### After that
+
+- Menu bar icon should appear (clipboard).
+- Complete onboarding and grant **Accessibility** if asked.
+- Future updates via **Sparkle** (Check for Updates) usually do not need this step again.
+
+If something still fails, make sure the app is in `/Applications` and not sitting on the Desktop or inside the mounted DMG.
 ## Keyboard shortcuts
 
 | Shortcut | Action |
