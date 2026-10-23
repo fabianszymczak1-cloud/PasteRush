@@ -19,7 +19,14 @@ public struct SettingsView: View {
             List(SettingsSection.allCases, selection: $selected) { section in
                 Text(section.title).tag(section)
             }
-            .navigationSplitViewColumnWidth(180)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                BuyMeACoffeeButton(compact: true)
+                    .padding(.horizontal, 10)
+                    .padding(.top, 6)
+                    .padding(.bottom, 12)
+                    .frame(maxWidth: .infinity)
+            }
+            .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 260)
         } detail: {
             ScrollView {
                 detail
