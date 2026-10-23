@@ -82,7 +82,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: L10n.tr("menu.stats"), action: #selector(showStats), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: L10n.tr("menu.backup"), action: #selector(runBackup), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: L10n.tr("menu.check_updates"), action: #selector(checkForUpdates), keyEquivalent: ""))
-        menu.addItem(NSMenuItem(title: L10n.tr("menu.support"), action: #selector(openSupport), keyEquivalent: ""))
+        let supportItem = NSMenuItem(title: L10n.tr("menu.support"), action: #selector(openSupport), keyEquivalent: "")
+        supportItem.image = NSImage(systemSymbolName: "cup.and.saucer.fill", accessibilityDescription: L10n.tr("menu.support"))?
+            .withSymbolConfiguration(.init(paletteColors: [NSColor(srgbRed: 0.72, green: 0.42, blue: 0.05, alpha: 1)]))
+        menu.addItem(supportItem)
         menu.addItem(NSMenuItem.separator())
         let dev = NSMenuItem(title: L10n.tr("menu.developer"), action: nil, keyEquivalent: "")
         let devMenu = NSMenu()

@@ -140,10 +140,17 @@ public final class ClipRepository {
         }
     }
 
+    /// Records a paste/copy and moves the clip to the top of history.
+    /// History is ordered by `copied_at`, so refreshing that timestamp is what
+    /// makes a picked item surface first (move-to-front).
     public func markUsed(id: String) {
-        db.async {
+        db.sync {
+            let now = Date().timeIntervalSince1970
             self.db.exec("""
-            UPDATE clips SET last_used_at = \(Date().timeIntervalSince1970), use_count = use_count + 1 WHERE id = '\(id)';
+            UPDATE clips SET last_used_at = \(now),
+                             copied_at = \(now),
+                             use_count = use_count + 1
+            WHERE id = '\(id)';
             """)
         }
     }

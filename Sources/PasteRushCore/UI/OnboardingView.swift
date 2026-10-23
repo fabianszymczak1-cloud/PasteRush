@@ -128,8 +128,8 @@ public struct OnboardingView: View {
                 .foregroundStyle(.secondary)
                 .padding(.top, 4)
 
-            Link(L10n.tr("onboarding.support_link"), destination: SupportLinks.buyMeACoffee)
-                .font(.caption.weight(.semibold))
+            BuyMeACoffeeButton()
+                .padding(.top, 6)
             Text(L10n.tr("onboarding.support"))
                 .font(.caption2)
                 .foregroundStyle(.secondary)

@@ -214,7 +214,8 @@ struct PopupRootView: View {
             Text(L10n.tr("popup.results", Int64(coordinator.results.count)))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
-            Spacer()
+            Spacer(minLength: 8)
+            BuyMeACoffeeButton(compact: true)
             if !selectedIds.isEmpty {
                 Menu(L10n.tr("popup.selection", Int64(selectedIds.count))) {
                     Button(L10n.tr("popup.paste_sequential")) {
@@ -235,9 +236,43 @@ struct PopupRootView: View {
             Text(L10n.tr("popup.hints"))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .layoutPriority(-1)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
+    }
+}
+
+struct BuyMeACoffeeButton: View {
+    var compact: Bool = false
+
+    var body: some View {
+        Button(action: open) {
+            HStack(spacing: compact ? 5 : 8) {
+                Image(systemName: "cup.and.saucer.fill")
+                Text(L10n.tr("menu.support"))
+            }
+            .font(compact ? .caption.weight(.bold) : .callout.weight(.bold))
+            .foregroundStyle(.black)
+            .padding(.horizontal, compact ? 10 : 14)
+            .padding(.vertical, compact ? 4 : 8)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(Color(red: 1, green: 221 / 255, blue: 0))
+            )
+            .overlay(
+                Capsule(style: .continuous)
+                    .strokeBorder(Color.black.opacity(0.2), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+        .fixedSize()
+        .help(L10n.tr("settings.support_cta"))
+    }
+
+    private func open() {
+        NSWorkspace.shared.open(SupportLinks.buyMeACoffee)
     }
 }
 

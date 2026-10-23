@@ -136,6 +136,24 @@ final class PasteRushTests: XCTestCase {
         XCTAssertTrue(q.freeText.contains("hello"))
     }
 
+    func testSelectingClipMovesItToTop() {
+        let first = repo.insert(makeTextClip("screen-1", copiedAt: Date(timeIntervalSince1970: 1_000)), allowDuplicates: true)
+        let second = repo.insert(makeTextClip("screen-2", copiedAt: Date(timeIntervalSince1970: 2_000)), allowDuplicates: true)
+        let third = repo.insert(makeTextClip("screen-3", copiedAt: Date(timeIntervalSince1970: 3_000)), allowDuplicates: true)
+
+        XCTAssertEqual(repo.recent().map(\.id), [third.id, second.id, first.id])
+
+        // Pick the last item: it becomes first, the others keep their order.
+        repo.markUsed(id: first.id)
+        XCTAssertEqual(repo.recent().map(\.id), [first.id, third.id, second.id])
+
+        repo.markUsed(id: second.id)
+        XCTAssertEqual(repo.recent().map(\.id), [second.id, first.id, third.id])
+
+        repo.markUsed(id: third.id)
+        XCTAssertEqual(repo.recent().map(\.id), [third.id, second.id, first.id])
+    }
+
     func testOwnPasteHashIsolation() {
         // Ensure identical content can be suppressed by allowDuplicates=false after touch
         let first = repo.insert(makeTextClip("loop"), allowDuplicates: false)
@@ -143,8 +161,10 @@ final class PasteRushTests: XCTestCase {
         XCTAssertEqual(first.id, second.id)
     }
 
-    private func makeTextClip(_ text: String, app: String? = nil) -> ClipRecord {
+    private func makeTextClip(_ text: String, app: String? = nil, copiedAt: Date = Date()) -> ClipRecord {
         ClipRecord(
+            copiedAt: copiedAt,
+            lastUsedAt: copiedAt,
             primaryType: .text,
             searchText: PolishNormalizer.searchBlob(from: text),
             preview: String(text.prefix(240)),

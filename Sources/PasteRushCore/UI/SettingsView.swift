@@ -225,7 +225,7 @@ public struct SettingsView: View {
                     .foregroundStyle(.secondary)
                 Text(L10n.tr("settings.support_cta"))
                     .padding(.top, 8)
-                Link(L10n.tr("menu.support"), destination: SupportLinks.buyMeACoffee)
+                BuyMeACoffeeButton()
             }
         }
 
