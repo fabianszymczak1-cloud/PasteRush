@@ -4,7 +4,7 @@ import UniformTypeIdentifiers
 
 public struct SettingsView: View {
     @ObservedObject var settings = SettingsStore.shared
-    @State private var selected: SettingsSection = .general
+    @State private var selected: SettingsSection
     @State private var stats = ClipRepository().stats()
     @State private var hotkeyConflict: String?
     @State private var recordingHotkey = false
@@ -12,7 +12,9 @@ public struct SettingsView: View {
     @State private var regexInput = ""
     @State private var statusMessage: String?
 
-    public init() {}
+    public init(initialSection: SettingsSection = .general) {
+        _selected = State(initialValue: initialSection)
+    }
 
     public var body: some View {
         NavigationSplitView {

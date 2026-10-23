@@ -363,14 +363,8 @@ struct ClipRowView: View {
 
 enum RelativeTimeFormatter {
     static func string(from date: Date) -> String {
-        let seconds = Int(Date().timeIntervalSince(date))
-        if seconds < 60 { return "przed chwilą" }
-        if seconds < 3600 { return "\(seconds / 60) min temu" }
-        if seconds < 86400 { return "\(seconds / 3600) godz. temu" }
-        if seconds < 86400 * 7 { return "\(seconds / 86400) dn. temu" }
-        let f = DateFormatter()
-        f.dateStyle = .short
-        f.timeStyle = .short
-        return f.string(from: date)
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .abbreviated
+        return formatter.localizedString(for: date, relativeTo: Date())
     }
 }

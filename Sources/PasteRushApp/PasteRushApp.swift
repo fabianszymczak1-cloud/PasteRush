@@ -1,7 +1,9 @@
 import SwiftUI
 import AppKit
 import PasteRushCore
+#if !PASTERUSH_APP_STORE
 import Sparkle
+#endif
 
 @main
 struct PasteRushApp: App {
@@ -24,7 +26,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var settingsWindow: NSWindow?
     private var onboardingWindow: NSWindow?
     private var toastWindow: NSWindow?
+    #if !PASTERUSH_APP_STORE
     private var updaterController: SPUStandardUpdaterController?
+    #endif
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -36,15 +40,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             ClipboardMonitor.shared.setPaused(true)
         }
 
+        #if !PASTERUSH_APP_STORE
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: nil,
             userDriverDelegate: nil
         )
+        #endif
 
         setupStatusItem()
         setupHotkey()
         observeNotifications()
+
+        if CommandLine.arguments.contains("--store-demo"),
+           Bundle.main.bundleIdentifier == "com.itszymczak.pasterush" {
+            StoreDemo.run(openSettings: { [weak self] in self?.presentSettings(section: .about) })
+            return
+        }
 
         if !SettingsStore.shared.hasCompletedOnboarding {
             showOnboarding()
@@ -81,11 +93,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: L10n.tr("menu.settings"), action: #selector(openSettings), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: L10n.tr("menu.stats"), action: #selector(showStats), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: L10n.tr("menu.backup"), action: #selector(runBackup), keyEquivalent: ""))
+        #if !PASTERUSH_APP_STORE
         menu.addItem(NSMenuItem(title: L10n.tr("menu.check_updates"), action: #selector(checkForUpdates), keyEquivalent: ""))
+        #endif
         let supportItem = NSMenuItem(title: L10n.tr("menu.support"), action: #selector(openSupport), keyEquivalent: "")
         supportItem.image = NSImage(systemSymbolName: "cup.and.saucer.fill", accessibilityDescription: L10n.tr("menu.support"))?
             .withSymbolConfiguration(.init(paletteColors: [NSColor(srgbRed: 0.72, green: 0.42, blue: 0.05, alpha: 1)]))
         menu.addItem(supportItem)
+        #if !PASTERUSH_APP_STORE
         menu.addItem(NSMenuItem.separator())
         let dev = NSMenuItem(title: L10n.tr("menu.developer"), action: nil, keyEquivalent: "")
         let devMenu = NSMenu()
@@ -93,6 +108,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         devMenu.addItem(NSMenuItem(title: L10n.tr("menu.run_benchmark"), action: #selector(runBenchmark), keyEquivalent: ""))
         dev.submenu = devMenu
         menu.addItem(dev)
+        #endif
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: L10n.tr("menu.quit"), action: #selector(quit), keyEquivalent: "q"))
         statusItem?.menu = menu
@@ -163,17 +179,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func openSettings() {
-        if settingsWindow == nil {
-            let view = SettingsView()
+        presentSettings(section: .general)
+    }
+
+    private func presentSettings(section: SettingsSection) {
+        if settingsWindow == nil || section != .general {
+            let view = SettingsView(initialSection: section)
             let hosting = NSHostingController(rootView: view)
             let window = NSWindow(contentViewController: hosting)
             window.title = L10n.tr("settings.window_title")
-            window.setContentSize(NSSize(width: 780, height: 520))
+            window.setContentSize(NSSize(width: 860, height: 620))
             window.styleMask = [.titled, .closable, .resizable, .miniaturizable]
             window.isReleasedWhenClosed = false
             settingsWindow = window
         }
         NSApp.activate(ignoringOtherApps: true)
+        settingsWindow?.center()
         settingsWindow?.makeKeyAndOrderFront(nil)
     }
 
@@ -200,9 +221,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    #if !PASTERUSH_APP_STORE
     @objc private func checkForUpdates() {
         updaterController?.checkForUpdates(nil)
     }
+    #endif
 
     @objc private func openSupport() {
         NSWorkspace.shared.open(SupportLinks.buyMeACoffee)

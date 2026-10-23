@@ -100,6 +100,21 @@ public final class PopupWindowController: NSWindowController, NSWindowDelegate {
         isPinnedOpen = pinned
     }
 
+    public func demoSearch(_ text: String) {
+        searchCoordinator.search(text)
+    }
+
+    public func demoPreviewFirstImage() {
+        if let index = searchCoordinator.results.firstIndex(where: { $0.primaryType == .image }) {
+            searchCoordinator.selectedIndex = index
+        }
+        PreviewWindowController.shared.show(coordinator: searchCoordinator)
+    }
+
+    public func demoHidePreview() {
+        PreviewWindowController.shared.hide(restoreSearchFocus: false)
+    }
+
     private func focusSearchField() {
         DispatchQueue.main.async {
             self.window?.makeFirstResponder(self.window?.contentView)

@@ -1,0 +1,71 @@
+name: PasteRush
+options:
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: L79YFD5F24
+    ENABLE_HARDENED_RUNTIME: YES
+    DEAD_CODE_STRIPPING: YES
+packages:
+  LocalPasteRush:
+    path: .
+targets:
+  PasteRush:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/PasteRushApp
+      - path: AppStore/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      - path: Resources/Sounds
+        buildPhase: resources
+      - path: Resources/Assets.xcassets
+        buildPhase: resources
+    dependencies:
+      - package: LocalPasteRush
+        product: PasteRushCore
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: AppStore/PasteRush.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.itszymczak.pasterush
+        PRODUCT_NAME: PasteRush
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: PASTERUSH_APP_STORE
+        INFOPLIST_FILE: AppStore/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_APP_SANDBOX: YES
+        LD_RUNPATH_SEARCH_PATHS: "@executable_path/../Frameworks"
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+    info:
+      path: AppStore/Info.plist
+      properties:
+        CFBundleDisplayName: PasteRush
+        CFBundleName: PasteRush
+        CFBundleIdentifier: com.itszymczak.pasterush
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, pl]
+        LSMinimumSystemVersion: "14.0"
+        LSUIElement: true
+        NSHighResolutionCapable: true
+        NSPrincipalClass: NSApplication
+        ITSAppUsesNonExemptEncryption: false
+        LSApplicationCategoryType: public.app-category.productivity
+        NSHumanReadableCopyright: "Copyright © 2026 Fabian Szymczak"
+schemes:
+  PasteRush:
+    build:
+      targets:
+        PasteRush: all
+    run:
+      config: Debug
+    archive:
+      config: Release
