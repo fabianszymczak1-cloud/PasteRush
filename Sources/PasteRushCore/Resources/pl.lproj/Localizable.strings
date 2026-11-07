@@ -198,3 +198,18 @@
 "transform.appendDateTime" = "Dodaj datę i czas";
 "transform.generateUUID" = "Wygeneruj UUID";
 "transform.textAsImage" = "Tekst jako obraz";
+
+"menu.support_store" = "Wesprzyj PasteRush";
+"settings.support_cta_store" = "PasteRush jest darmowy. Możesz zostawić dobrowolny napiwek przez App Store. Niczego nie odblokowuje.";
+"onboarding.support_store" = "PasteRush jest darmowy. Dobrowolny napiwek przez App Store niczego nie odblokowuje.";
+"popup.hints_store" = "↵ kopiuj · ␣ podgląd · esc zamknij";
+"preview.hints_store" = "↑↓←→ nawigacja · Esc zamknij · ↵ kopiuj";
+"onboarding.sc_paste_store" = "kopiuj i wróć do poprzedniej aplikacji";
+"onboarding.step4_hint_store" = "Spróbuj: skopiuj tekst → ⌃` → wpisz fragment → Enter → ⌘V.";
+"onboarding.step3_title_store" = "3. Kopiowanie i wklejanie";
+"onboarding.step3_body_store" = "Enter kopiuje wybrany element i wraca do aplikacji, w której pracowałeś. Wciśnij tam ⌘V, aby wkleić. Nie są potrzebne dodatkowe uprawnienia.";
+"toast.copied_press_cmdv" = "Skopiowano — wciśnij ⌘V, aby wkleić";
+"tip.title" = "Wesprzyj PasteRush";
+"tip.body" = "PasteRush zostaje darmowy. Napiwek jest dobrowolny i nie odblokowuje żadnej funkcji. Płatność obsługuje Apple.";
+"tip.unavailable" = "Napiwki są teraz niedostępne.";
+"tip.thanks" = "Dziękuję! Ten napiwek niczego nie odblokowuje.";

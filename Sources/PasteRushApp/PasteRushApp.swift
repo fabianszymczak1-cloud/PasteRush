@@ -31,6 +31,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     #endif
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        #if PASTERUSH_APP_STORE
+        Distribution.isAppStore = true
+        Distribution.presentSupport = { TipPresenter.show() }
+        TipStore.shared.start()
+        #endif
         NSApp.setActivationPolicy(.accessory)
 
         _ = Database.shared
@@ -96,8 +101,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         #if !PASTERUSH_APP_STORE
         menu.addItem(NSMenuItem(title: L10n.tr("menu.check_updates"), action: #selector(checkForUpdates), keyEquivalent: ""))
         #endif
-        let supportItem = NSMenuItem(title: L10n.tr("menu.support"), action: #selector(openSupport), keyEquivalent: "")
-        supportItem.image = NSImage(systemSymbolName: "cup.and.saucer.fill", accessibilityDescription: L10n.tr("menu.support"))?
+        let supportTitle = L10n.tr(Distribution.isAppStore ? "menu.support_store" : "menu.support")
+        let supportItem = NSMenuItem(title: supportTitle, action: #selector(openSupport), keyEquivalent: "")
+        supportItem.image = NSImage(systemSymbolName: Distribution.isAppStore ? "heart.fill" : "cup.and.saucer.fill", accessibilityDescription: supportTitle)?
             .withSymbolConfiguration(.init(paletteColors: [NSColor(srgbRed: 0.72, green: 0.42, blue: 0.05, alpha: 1)]))
         menu.addItem(supportItem)
         #if !PASTERUSH_APP_STORE
@@ -228,7 +234,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     #endif
 
     @objc private func openSupport() {
-        NSWorkspace.shared.open(SupportLinks.buyMeACoffee)
+        Distribution.presentSupport()
     }
 
     @objc private func manualPasteTest() {

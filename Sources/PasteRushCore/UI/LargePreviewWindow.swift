@@ -215,7 +215,7 @@ struct LargePreviewRoot: View {
             parts.append(ByteCountFormatter.string(fromByteCount: Int64(item.totalBytes), countStyle: .file))
         }
         if let app = item.sourceAppName { parts.append(app) }
-        parts.append(L10n.tr("preview.hints"))
+        parts.append(Distribution.tr("preview.hints"))
         return parts.joined(separator: " · ")
     }
 }

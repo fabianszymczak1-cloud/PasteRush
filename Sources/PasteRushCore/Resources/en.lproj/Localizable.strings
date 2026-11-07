@@ -198,3 +198,18 @@
 "transform.appendDateTime" = "Append date & time";
 "transform.generateUUID" = "Generate UUID";
 "transform.textAsImage" = "Text as image";
+
+"menu.support_store" = "Support PasteRush";
+"settings.support_cta_store" = "PasteRush is free. You can leave an optional tip through the App Store. It does not unlock anything.";
+"onboarding.support_store" = "PasteRush is free. An optional tip through the App Store does not unlock anything.";
+"popup.hints_store" = "↵ copy · ␣ preview · esc close";
+"preview.hints_store" = "↑↓←→ navigate · Esc close · ↵ copy";
+"onboarding.sc_paste_store" = "copy and return to the previous app";
+"onboarding.step4_hint_store" = "Try it: copy text → press ⌃` → type a fragment → Enter → ⌘V.";
+"onboarding.step3_title_store" = "3. Copy and paste";
+"onboarding.step3_body_store" = "Enter copies the selected item and switches back to the app you were using. Press ⌘V there to paste. No extra permissions are needed.";
+"toast.copied_press_cmdv" = "Copied — press ⌘V to paste";
+"tip.title" = "Support PasteRush";
+"tip.body" = "PasteRush stays free. A tip is optional and does not unlock any feature. Payment is handled by Apple.";
+"tip.unavailable" = "Tips are unavailable right now.";
+"tip.thanks" = "Thank you! This tip does not unlock anything.";

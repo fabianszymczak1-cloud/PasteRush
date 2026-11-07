@@ -4,7 +4,7 @@ PasteRush is a free menu-bar app that keeps a clipboard history on your Mac.
 
 ## Polski
 
-PasteRush to darmowa aplikacja historii schowka na Macu. Tekst, zrzuty ekranu, zdjęcia i pliki zostają tylko na tym komputerze. Aplikacja nie wysyła skopiowanych rzeczy, nie wymaga konta i nie zawiera analityki. Uprawnienie Dostępność służy wyłącznie do wklejenia wybranego elementu do poprzedniej aplikacji. Buy Me a Coffee otwiera się w przeglądarce, jest opcjonalne i niczego nie odblokowuje.
+PasteRush to darmowa aplikacja historii schowka na Macu. Tekst, zrzuty ekranu, zdjęcia i pliki zostają tylko na tym komputerze. Aplikacja nie wysyła skopiowanych rzeczy, nie wymaga konta i nie zawiera analityki. Wersja z Mac App Store nie prosi o uprawnienie Dostępność: Enter kopiuje element i wraca do poprzedniej aplikacji, a wkleja się ⌘V. Napiwek w aplikacji jest dobrowolny, płatność obsługuje Apple i niczego nie odblokowuje.
 
 ## What stays on your Mac
 
@@ -12,13 +12,13 @@ Copied text, images, screenshots, and files are stored only on this Mac, inside 
 
 There is no history cap. Items stay until you delete them.
 
-## Accessibility
+## Permissions
 
-macOS asks for Accessibility so Enter can paste the chosen item into the previous app. History and search work without that permission. The permission is not used for anything else.
+The Mac App Store version does not request Accessibility. Enter copies the chosen item and switches back to the previous app; you paste with ⌘V.
 
-## Optional support
+## Optional tips
 
-Buy Me a Coffee opens in your browser. PasteRush does not receive payment details. The link is optional and does not unlock features. The app is free.
+Tips are optional In-App Purchases handled by Apple. PasteRush never sees payment details. A tip does not unlock features. The app is free.
 
 ## Contact
 

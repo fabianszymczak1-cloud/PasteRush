@@ -232,7 +232,7 @@ public struct SettingsView: View {
                 Text(L10n.tr("settings.version", Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?"))
                 Text(L10n.tr("settings.about_privacy"))
                     .foregroundStyle(.secondary)
-                Text(L10n.tr("settings.support_cta"))
+                Text(Distribution.tr("settings.support_cta"))
                     .padding(.top, 8)
                 BuyMeACoffeeButton()
             }

@@ -29,10 +29,12 @@ public final class AccessibilityPermissionManager {
     public init() {}
 
     public var isTrusted: Bool {
-        AXIsProcessTrusted()
+        guard !Distribution.isAppStore else { return false }
+        return AXIsProcessTrusted()
     }
 
     public func promptIfNeeded() -> Bool {
+        guard !Distribution.isAppStore else { return false }
         let opts = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         return AXIsProcessTrustedWithOptions(opts)
     }
@@ -89,9 +91,13 @@ public final class PasteCoordinator {
             lastPasteMessage = nil
         } else {
             repository.markUsed(id: clipId)
-            lastPasteMessage = "Brak uprawnienia Dostępność — naciśnij ⌘V"
+            lastPasteMessage = manualPasteMessage
             NotificationCenter.default.post(name: .pasteRushNeedsPasteManual, object: lastPasteMessage)
         }
+    }
+
+    private var manualPasteMessage: String {
+        Distribution.isAppStore ? L10n.tr("toast.copied_press_cmdv") : "Brak uprawnienia Dostępność — naciśnij ⌘V"
     }
 
     public func pastePlainText(_ text: String, copyOnly: Bool = false) {
@@ -111,7 +117,7 @@ public final class PasteCoordinator {
                 self.sendCommandV()
             }
         } else {
-            lastPasteMessage = "Brak uprawnienia Dostępność — naciśnij ⌘V"
+            lastPasteMessage = manualPasteMessage
             NotificationCenter.default.post(name: .pasteRushNeedsPasteManual, object: lastPasteMessage)
         }
     }
@@ -178,6 +184,8 @@ public final class PasteCoordinator {
                 _ = previousAppTracker.activatePrevious()
                 if accessibility.isTrusted {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { self.sendCommandV() }
+                } else {
+                    NotificationCenter.default.post(name: .pasteRushNeedsPasteManual, object: manualPasteMessage)
                 }
             }
             return
@@ -205,6 +213,7 @@ public final class PasteCoordinator {
     }
 
     public func sendCommandV() {
+        guard !Distribution.isAppStore else { return }
         let source = CGEventSource(stateID: .hidSystemState)
         let keyDown = CGEvent(keyboardEventSource: source, virtualKey: 0x09, keyDown: true) // V
         let keyUp = CGEvent(keyboardEventSource: source, virtualKey: 0x09, keyDown: false)

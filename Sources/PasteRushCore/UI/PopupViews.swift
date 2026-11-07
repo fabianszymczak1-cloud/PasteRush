@@ -218,8 +218,10 @@ struct PopupRootView: View {
             BuyMeACoffeeButton(compact: true)
             if !selectedIds.isEmpty {
                 Menu(L10n.tr("popup.selection", Int64(selectedIds.count))) {
-                    Button(L10n.tr("popup.paste_sequential")) {
-                        PasteCoordinator.shared.pasteMultiple(ids: Array(selectedIds), mode: .sequential)
+                    if !Distribution.isAppStore {
+                        Button(L10n.tr("popup.paste_sequential")) {
+                            PasteCoordinator.shared.pasteMultiple(ids: Array(selectedIds), mode: .sequential)
+                        }
                     }
                     Button(L10n.tr("popup.join_newline")) {
                         PasteCoordinator.shared.pasteMultiple(ids: Array(selectedIds), mode: .newline)
@@ -233,7 +235,7 @@ struct PopupRootView: View {
                 }
                 .font(.caption)
             }
-            Text(L10n.tr("popup.hints"))
+            Text(Distribution.tr("popup.hints"))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
@@ -248,10 +250,10 @@ struct BuyMeACoffeeButton: View {
     var compact: Bool = false
 
     var body: some View {
-        Button(action: open) {
+        Button(action: Distribution.presentSupport) {
             HStack(spacing: compact ? 5 : 8) {
-                Image(systemName: "cup.and.saucer.fill")
-                Text(L10n.tr("menu.support"))
+                Image(systemName: Distribution.isAppStore ? "heart.fill" : "cup.and.saucer.fill")
+                Text(Distribution.tr("menu.support"))
             }
             .font(compact ? .caption.weight(.bold) : .callout.weight(.bold))
             .foregroundStyle(.black)
@@ -268,11 +270,7 @@ struct BuyMeACoffeeButton: View {
         }
         .buttonStyle(.plain)
         .fixedSize()
-        .help(L10n.tr("settings.support_cta"))
-    }
-
-    private func open() {
-        NSWorkspace.shared.open(SupportLinks.buyMeACoffee)
+        .help(Distribution.tr("settings.support_cta"))
     }
 }
 

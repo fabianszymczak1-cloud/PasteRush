@@ -34,6 +34,12 @@ public struct OnboardingView: View {
                             .font(.system(.body, design: .monospaced))
                     }.tag(1)
 
+                    if Distribution.isAppStore {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(L10n.tr("onboarding.step3_title_store")).font(.title2.bold())
+                            Text(L10n.tr("onboarding.step3_body_store"))
+                        }.tag(2)
+                    } else {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(L10n.tr("onboarding.step3_title")).font(.title2.bold())
                         Text(L10n.tr("onboarding.step3_body"))
@@ -55,6 +61,7 @@ public struct OnboardingView: View {
                                 .font(.caption)
                         }
                     }.tag(2)
+                    }
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text(L10n.tr("onboarding.step4_title")).font(.title2.bold())
@@ -62,7 +69,7 @@ public struct OnboardingView: View {
                             .onChange(of: settings.launchAtLogin) { _, value in
                                 try? LaunchAtLoginService().setEnabled(value)
                             }
-                        Text(L10n.tr("onboarding.step4_hint"))
+                        Text(Distribution.tr("onboarding.step4_hint"))
                             .foregroundStyle(.secondary)
                     }.tag(3)
 
@@ -108,7 +115,7 @@ public struct OnboardingView: View {
                 .font(.system(.callout, design: .monospaced))
 
             VStack(alignment: .leading, spacing: 4) {
-                shortcutRow("↵", L10n.tr("onboarding.sc_paste"))
+                shortcutRow("↵", Distribution.tr("onboarding.sc_paste"))
                 shortcutRow("⇧↵", L10n.tr("onboarding.sc_plain"))
                 shortcutRow("⌘↵", L10n.tr("onboarding.sc_copy"))
                 shortcutRow("⌥↵", L10n.tr("onboarding.sc_props"))
@@ -130,7 +137,7 @@ public struct OnboardingView: View {
 
             BuyMeACoffeeButton()
                 .padding(.top, 6)
-            Text(L10n.tr("onboarding.support"))
+            Text(Distribution.tr("onboarding.support"))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
         }
